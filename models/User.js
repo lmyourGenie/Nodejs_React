@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema({
         default: 0
     },
     image: String,
+    
     token: {
         type: String
     },
@@ -27,9 +28,9 @@ const userSchema = mongoose.Schema({
         type: Number
     }
 
-})
+});
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
 //다른파일에서도 쓸 수 있도록
-module.exports = { User }
+module.exports = { User };
