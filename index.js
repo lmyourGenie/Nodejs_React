@@ -6,7 +6,6 @@ const port = 5000;
 
 const bodyParser = require('body-parser');
 const { User } = require("./models/User");
-
 const config = require('./config/key');
 
 //application/x-www-form-urlencoded
@@ -21,11 +20,11 @@ const mongoose = require('mongoose');
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
-}).then(() => console.log('MongoDB Connected...'))
+}).then(() => console.log('MongoDB 연결됨...'))
 .catch(err => console.log(err));
 
 
-app.get('/', (req, res) => res.send('Hello World! 반갑습니둥'));
+app.get('/', (req, res) => res.send('Hello World! 반갑습니다 :)'));
 //루트 디렉토리에 오면 hello world 출력
 
 
@@ -38,14 +37,17 @@ app.post('/register', (req, res) => {
   //req.body에는 json형식으로 데이터가 저장됨
   //이건 body-parser를 다운받은 덕분
 
+
+  //여기서, 즉 저장하기 전에 비번을 암호화함
+  //User.js 확인
+
   user.save((err, userInfo) => {
     if(err) return res.json({ success: false, err})
     
     return res.status(200).json({
       success: true
-    });
-  }); //몽고DB에 저장
-});
+    })
+  }) //몽고DB에 저장
+})
 
-
-app.listen(port, () => console.log('Example app listening on port ${port}!'));
+app.listen(port, () => console.log('Example app listening on port' , port))
