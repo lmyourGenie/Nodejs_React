@@ -6,7 +6,6 @@ function NavBar() {
             NavBar
         </div>
     )
-    
 }
 
 export default NavBar
