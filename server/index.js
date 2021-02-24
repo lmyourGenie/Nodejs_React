@@ -11,10 +11,10 @@ const config = require('./config/key');
 const { auth } = require("./middleware/auth");
 
 //application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}));
+app.use('/mock',bodyParser.urlencoded({extended: true}));
 
 //application/json
-app.use(bodyParser.json());
+app.use('/mock',bodyParser.json());
 app.use(cookieParser());
 
 //Mongoose로 어플과 mongoDB를 연결

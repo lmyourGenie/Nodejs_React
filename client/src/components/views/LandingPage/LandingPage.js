@@ -8,7 +8,7 @@ function LandingPage(props) {
             .then(response => { console.log(response) })
     }, [])
 
-
+    //로그아웃을 위한 핸들러 추가
     const onClickHandler = () => {
         axios.get(`/api/users/logout`)
             .then(response => {
