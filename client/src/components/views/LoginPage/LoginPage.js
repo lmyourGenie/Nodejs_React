@@ -37,7 +37,7 @@ function LoginPage(props) {
                     props.history.push('/')
                     // 로그인 성공하면 페이지를 변경
                 } else {
-                    alert('Error˝')
+                    alert('Error')
                 }
             })
     }

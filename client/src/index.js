@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceworker';
+import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import 'antd/dist/antd.css';
 import { applyMiddleware, createStore } from 'redux';

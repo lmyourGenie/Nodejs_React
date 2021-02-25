@@ -10,7 +10,7 @@ function LandingPage(props) {
 
     //로그아웃을 위한 핸들러 추가
     const onClickHandler = () => {
-        axios.get(`/api/users/logout`)
+        axios.get('/api/users/logout')
             .then(response => {
                 if (response.data.success) {
                     props.history.push("/login")

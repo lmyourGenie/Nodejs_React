@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { auth } from '../_actions/user_action';
 
@@ -10,8 +11,12 @@ export default function (SpecificComponent, option, adminRoute = null) {
     function AuthenticationCheck(props) {
         const dispatch = useDispatch();
 
+        //Back end에 request보내서 상태(state) 받아오기
         useEffect(() => {
 
+            //action이름 : auth로 정함
+            //그래서 위에 import한 것임
+            //backend 안에서 제공한 모든 정보가 response안에 있음
             dispatch(auth()).then(response => {
                 console.log(response)
                 //로그인 하지 않은 상태 
@@ -26,6 +31,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                     } else {
                         if (option === false)
                             props.history.push('/')
+                            //랜딩페이지로 보냄
                     }
                 }
             })

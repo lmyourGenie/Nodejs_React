@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
         type: String,
         maxlength: 50
     },
+    lastname: {
+        type: String,
+        maxlength: 50
+    },
     role: {
         type: Number,
         default: 0
@@ -61,8 +65,8 @@ userSchema.methods.comparePassword = function(plainPassword, cb) {
     //plainPassword와 암호화된 비밀번호가 같은지 확인
     //-> plainPassword를 암호화하여 비교
     bcrypt.compare(plainPassword, this.password, function(err,isMatch) {
-        if(err) return cb(err),
-            cb(null, isMatch)
+        if(err) return cb(err);
+        cb(null, isMatch);
     })
 }
 
@@ -94,9 +98,6 @@ userSchema.statics.findByToken = function(token, cb) {
             if(err) return cb(err);
             cb(null, user)
         })
-
-
-
     })
 }
 

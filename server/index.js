@@ -11,10 +11,14 @@ const config = require('./config/key');
 const { auth } = require("./middleware/auth");
 
 //application/x-www-form-urlencoded
-app.use('/mock',bodyParser.urlencoded({extended: true}));
+//머지 이거 아닌가
+//app.use('/mock',bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //application/json
-app.use('/mock',bodyParser.json());
+//머지 이거 아닌가
+//app.use('/mock',bodyParser.json());
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 //Mongoose로 어플과 mongoDB를 연결
@@ -36,7 +40,7 @@ app.post('/api/users/register', (req, res) => {
   //회원가입에 필요한 정보들을 client에서 가져오면
   //그것들을   데이터 베이스에 넣어준다.
   
-  const user = new User(req.body);
+  const user = new User(req.body)
   //req.body에는 json형식으로 데이터가 저장됨
   //이건 body-parser를 다운받은 덕분
 
