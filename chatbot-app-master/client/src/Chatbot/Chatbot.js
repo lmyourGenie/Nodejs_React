@@ -16,12 +16,17 @@ function Chatbot() {
     }, [])
 
 
+    //TextQuery Function 만들기
     const textQuery = async (text) => {
 
-        //  First  Need to  take care of the message I sent     
+        //  First  Need to  take care of the message I sent    
         let conversation = {
-            who: 'user',
-            content: {
+            /*
+            conversation이라는 이름의 object 변수 생성
+            그 안에 누가 메시지를 보냈는지 넣음
+            */
+            who: 'user', //user : 우리 자신
+            content: { //content : 우리가 입력한 것
                 text: {
                     text: text
                 }
@@ -29,7 +34,6 @@ function Chatbot() {
         }
 
         dispatch(saveMessage(conversation))
-        // console.log('text I sent', conversation)
 
         // We need to take care of the message Chatbot sent 
         const textQueryVariables = {
@@ -68,11 +72,12 @@ function Chatbot() {
     }
 
 
+    //EventQuery Function 만들기
     const eventQuery = async (event) => {
 
         // We need to take care of the message Chatbot sent 
         const eventQueryVariables = {
-            event
+            event //텍스트쿼리와 달리 event라고 하는 것을 확인하자
         }
         try {
             //I will send request to the textQuery ROUTE 
@@ -105,13 +110,15 @@ function Chatbot() {
 
     const keyPressHanlder = (e) => {
         if (e.key === "Enter") {
+            //엔터를 친다면
 
             if (!e.target.value) {
                 return alert('you need to type somthing first')
+                //아무것도 입력하지 않고 엔터키를 누를 경우
             }
 
             //we will send request to text query route 
-            textQuery(e.target.value)
+            textQuery(e.target.value) //무언가를 입력하고 엔터키를 누른 경우
 
 
             e.target.value = "";

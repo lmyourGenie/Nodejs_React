@@ -15,10 +15,10 @@ const languageCode = config.dialogFlowSessionLanguageCode
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
-// 2개의 라우트를 생성
+// We will make two routes 
 
 
-// (1) Text Query Route
+// Text Query Route
 
 router.post('/textQuery', async (req, res) => {
     //We need to send some information that comes from the client to Dialogflow API 
@@ -47,7 +47,7 @@ router.post('/textQuery', async (req, res) => {
 
 
 
-// (2) Event Query Route
+//Event Query Route
 
 router.post('/eventQuery', async (req, res) => {
     //We need to send some information that comes from the client to Dialogflow API 
@@ -57,7 +57,7 @@ router.post('/eventQuery', async (req, res) => {
         queryInput: {
             event: {
                 // The query to send to the dialogflow agent
-                name: req.body.event, //위의 Text Query Route와는 조금 다른 모습을 확인해보자
+                name: req.body.event,
                 // The language used by the client (en-US)
                 languageCode: languageCode,
             },
