@@ -5,7 +5,7 @@ function Message(props) {
 
     const AvatarSrc = props.who ==='bot' ? <Icon type="robot" /> : <Icon type="smile" />  
 
-    return (
+    return ( // who가 bot이나 user냐에 따라 다른 icon을 보이게 함
         <List.Item style={{ padding: '1rem' }}>
             <List.Item.Meta
                 avatar={<Avatar icon={AvatarSrc} />}

@@ -16,6 +16,11 @@ function Chatbot() {
     }, [])
 
 
+    //뭔가 입력하고 엔터를 누르면
+    //textQuery Function 실행
+    //이 conversation데이터를 리덕스 스토어에 넣음
+
+
     //TextQuery Function 만들기
     const textQuery = async (text) => {
 
@@ -44,6 +49,7 @@ function Chatbot() {
             const response = await Axios.post('/api/dialogflow/textQuery', textQueryVariables)
 
             for (let content of response.data.fulfillmentMessages) {
+                //하나의 입력이 들어와도 필요에 따라 여러개의 출력을 할 수 있도록 함
 
                 conversation = {
                     who: 'bot',
@@ -52,6 +58,8 @@ function Chatbot() {
 
                 dispatch(saveMessage(conversation))
             }
+            //우리가 입력한 데이터 뿐만 아니라
+            //봇이 보낸 데이터도 저장
 
 
         } catch (error) {
@@ -62,6 +70,7 @@ function Chatbot() {
                         text: " Error just occured, please check the problem"
                     }
                 }
+                //에러가 났을 때도 저장
             }
 
             dispatch(saveMessage(conversation))
@@ -83,6 +92,7 @@ function Chatbot() {
             //I will send request to the textQuery ROUTE 
             const response = await Axios.post('/api/dialogflow/eventQuery', eventQueryVariables)
             for (let content of response.data.fulfillmentMessages) {
+                //하나의 입력이 들어와도 필요에 따라 여러개의 출력을 할 수 있도록 함
 
                 let conversation = {
                     who: 'bot',
@@ -129,16 +139,18 @@ function Chatbot() {
         return cards.map((card,i) => <Card key={i} cardInfo={card.structValue} />)
     }
 
-
+    
+    //renderOneMessage를 정의함
     const renderOneMessage = (message, i) => {
         console.log('message', message)
 
         // we need to give some condition here to separate message kinds 
 
         // template for normal text 
-        if (message.content && message.content.text && message.content.text.text) {
+        // 저장된 걸 보고 조건을 지정함
+        if (message.content && message.content.text && message.content.text.text) { //이런 형식이면 텍스트 메세지인 것을 알 수 있다
             return <Message key={i} who={message.who} text={message.content.text.text} />
-        } else if (message.content && message.content.payload.fields.card) {
+        } else if (message.content && message.content.payload.fields.card) { //반면 이런 형식이라면 카드 메세지인 것을 알 수 있다
 
             const AvatarSrc = message.who === 'bot' ? <Icon type="robot" /> : <Icon type="smile" />
 
@@ -148,6 +160,7 @@ function Chatbot() {
                         avatar={<Avatar icon={AvatarSrc} />}
                         title={message.who}
                         description={renderCards(message.content.payload.fields.card.listValue.values)}
+                        //세 개의 카드 정보가 한꺼번에 들어오므로 map으로 정리하는데 그 코드는 138
                     />
                 </List.Item>
             </div>
@@ -160,14 +173,14 @@ function Chatbot() {
 
         // template for card message 
 
-
-
-
     }
+
 
     const renderMessage = (returnedMessages) => {
 
         if (returnedMessages) {
+            //map메소드를 이용
+            //하나하나의 데이터들을 다 처리해줘야 되기 때문
             return returnedMessages.map((message, i) => {
                 return renderOneMessage(message, i);
             })
@@ -175,9 +188,12 @@ function Chatbot() {
             return null;
         }
     }
-
+    //helper Method 생성
 
     return (
+        // useSelector를 사용해서
+        // 리덕스 안에 들어 있는 데이터들을 넣어주어야함
+        //(messagesFromRedux 변수로 저장된 데이터를 가져옴)
         <div style={{
             height: 700, width: 700,
             border: '3px solid black', borderRadius: '7px'
